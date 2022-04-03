@@ -3,6 +3,7 @@ using HelloChatApp.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using HelloChatApp.Server.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,8 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+builder.Services.ConfigureChatAppDependencies();
 
 var app = builder.Build();
 
