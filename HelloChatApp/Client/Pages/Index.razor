@@ -1,9 +1,108 @@
 ﻿@page "/"
+@using HelloChatApp.Shared
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
+@implements IAsyncDisposable
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Chat</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="form-group">
+    <label>
+        Room:
+        <select value=@room @onchange="SelectRoom">        
+            <option value="c#devs"> C# Devs </option>
+            <option value="pythondevs"> Python Devs </option>
+        </select>
+    </label> 
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label>
+        Message:
+        <input @bind="messageInput" size="50" />
+    </label>
+</div>
 
-Welcome to your new app.
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<hr>
+
+<ul id="messagesList">
+    @foreach (var message in messages)
+    {
+        <li>@message</li>
+    }
+</ul>
+
+@code {
+    private HubConnection? hubConnection;
+    private List<string> messages = new List<string>();
+    private string? room = "c#devs";    
+    private string? messageInput;    
+
+    [Inject]
+    public IAccessTokenProvider AccessTokenProvider { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"), options =>
+            { 
+                options.AccessTokenProvider = async () =>
+                {
+                    var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
+                    accessTokenResult.TryGetToken(out var accessToken);
+                    return accessToken.Value;                    
+                };
+            }).Build();
+
+        await EnterRoom();
+    }
+
+    private async Task Send()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("SendMessage", new MessageModel(room ?? "Room01", messageInput ?? ""));
+        }
+    }
+
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    async void SelectRoom(ChangeEventArgs e)
+    {        
+        if (room != null)
+        {
+            await hubConnection.StopAsync();
+            hubConnection.Remove(room);
+        }
+
+        room = e.Value.ToString();
+        await EnterRoom();
+        messages.Clear();
+        StateHasChanged();
+    }
+
+    async Task EnterRoom()
+    {        
+        hubConnection.On<string, string>(room, (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(encodedMsg);
+            StateHasChanged();
+        });        
+        await hubConnection.StartAsync();
+    }
+}
+
