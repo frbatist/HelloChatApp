@@ -2,8 +2,8 @@ using HelloChatApp.Server.Data;
 using HelloChatApp.Server.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using HelloChatApp.Server.Extensions;
+using HelloChatApp.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +24,7 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddSignalR();
 builder.Services.ConfigureChatAppDependencies();
 
 var app = builder.Build();
@@ -60,6 +60,10 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<ChatHub>("/chathub");
+});
 app.MapFallbackToFile("index.html");
 
 app.Run();

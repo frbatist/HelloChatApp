@@ -15,7 +15,16 @@ namespace HelloChatApp.Server.Services
 
         public async Task<string?> GetLoggedUserName(HttpContext? context)
         {
-            throw new NotImplementedException();
+            if (context == null)
+                return null;
+            if (_currentUser == null)
+            {
+                var principal = context.User;
+                _currentUser = await _userRepository.FindByClaimsPrincipal(principal);
+            }
+            if (_currentUser == null)
+                return null;
+            return _currentUser.FirstName;
         }
     }
 }
