@@ -1,8 +1,8 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
+﻿using HelloChatApp.Shared.Abstractions;
 using RabbitMQ.Client;
 using System.Text.Json;
 
-namespace HelloChatApp.BotConsole.Infra.RabbitMq
+namespace HelloChatApp.Shared.Infra.RabbitMq
 {
     public class RabbitMqPublisher : IPublisher
     {
@@ -21,7 +21,7 @@ namespace HelloChatApp.BotConsole.Infra.RabbitMq
             channel.BasicPublish(exchange: "logs",
                                  routingKey: "",
                                  basicProperties: null,
-                                 body: body);            
+                                 body: body);
         }
     }
 }

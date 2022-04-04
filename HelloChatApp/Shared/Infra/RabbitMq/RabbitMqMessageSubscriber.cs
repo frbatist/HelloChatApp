@@ -1,10 +1,10 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
+﻿using HelloChatApp.Shared.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text.Json;
 
-namespace HelloChatApp.BotConsole.Infra.RabbitMq
+namespace HelloChatApp.Shared.Infra.RabbitMq
 {
     public static class RabbitMqMessageSubscriber
     {

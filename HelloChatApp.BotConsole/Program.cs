@@ -1,9 +1,10 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
-using HelloChatApp.BotConsole.Consumers;
-using HelloChatApp.BotConsole.Infra.RabbitMq;
+﻿using HelloChatApp.BotConsole.Consumers;
+using HelloChatApp.BotConsole.Domain.Abstractions;
 using HelloChatApp.BotConsole.Infra.Services;
-using HelloChatApp.BotConsole.Messages;
 using HelloChatApp.BotConsole.Services;
+using HelloChatApp.Shared.Abstractions;
+using HelloChatApp.Shared.Infra.RabbitMq;
+using HelloChatApp.Shared.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

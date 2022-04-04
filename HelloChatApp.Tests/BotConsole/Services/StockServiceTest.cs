@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using HelloChatApp.BotConsole.Abstractions;
+using HelloChatApp.BotConsole.Domain.Abstractions;
 using HelloChatApp.BotConsole.Services;
 using NSubstitute;
 using System;

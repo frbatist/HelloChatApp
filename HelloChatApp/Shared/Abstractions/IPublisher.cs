@@ -1,4 +1,4 @@
-﻿namespace HelloChatApp.BotConsole.Abstractions
+﻿namespace HelloChatApp.Shared.Abstractions
 {
     public interface IPublisher
     {

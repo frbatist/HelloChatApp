@@ -1,4 +1,4 @@
-﻿namespace HelloChatApp.Server.Services
+﻿namespace HelloChatApp.Server.Domain.Abstractions
 {
     public interface IUserService
     {

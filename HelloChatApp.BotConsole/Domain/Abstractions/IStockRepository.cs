@@ -1,4 +1,4 @@
-﻿namespace HelloChatApp.BotConsole.Abstractions
+﻿namespace HelloChatApp.BotConsole.Domain.Abstractions
 {
     public interface IStockRepository
     {

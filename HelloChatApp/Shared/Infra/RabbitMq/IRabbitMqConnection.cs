@@ -1,6 +1,6 @@
 ﻿using RabbitMQ.Client;
 
-namespace HelloChatApp.BotConsole.Infra.RabbitMq
+namespace HelloChatApp.Shared.Infra.RabbitMq
 {
     public interface IRabbitMqConnection
     {

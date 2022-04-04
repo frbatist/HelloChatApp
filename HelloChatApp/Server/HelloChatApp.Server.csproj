@@ -26,4 +26,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="infra\" />
+  </ItemGroup>
+
 </Project>

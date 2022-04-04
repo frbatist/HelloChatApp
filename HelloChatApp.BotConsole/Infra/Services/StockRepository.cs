@@ -1,4 +1,4 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
+﻿using HelloChatApp.BotConsole.Domain.Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace HelloChatApp.BotConsole.Infra.Services

@@ -1,6 +1,7 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
-using HelloChatApp.BotConsole.Consumers;
-using HelloChatApp.BotConsole.Messages;
+﻿using HelloChatApp.BotConsole.Consumers;
+using HelloChatApp.BotConsole.Domain.Abstractions;
+using HelloChatApp.Shared.Abstractions;
+using HelloChatApp.Shared.Messages;
 using NSubstitute;
 using System.Threading.Tasks;
 using Xunit;

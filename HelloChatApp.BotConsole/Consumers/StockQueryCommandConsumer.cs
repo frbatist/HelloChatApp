@@ -1,5 +1,6 @@
-﻿using HelloChatApp.BotConsole.Abstractions;
-using HelloChatApp.BotConsole.Messages;
+﻿using HelloChatApp.BotConsole.Domain.Abstractions;
+using HelloChatApp.Shared.Abstractions;
+using HelloChatApp.Shared.Messages;
 
 namespace HelloChatApp.BotConsole.Consumers
 {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloChatApp.BotConsole.Abstractions
+namespace HelloChatApp.BotConsole.Domain.Abstractions
 {
     public interface IStockService
     {

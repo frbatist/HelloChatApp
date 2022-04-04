@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
-namespace HelloChatApp.BotConsole.Infra.RabbitMq
+namespace HelloChatApp.Shared.Infra.RabbitMq
 {
     public class RabbitMqConnection : IRabbitMqConnection
-    {        
+    {
         private readonly IConnection _connection;
         private const string RabbitMqConnectionStringKey = "RabbitMqConnection";
 
