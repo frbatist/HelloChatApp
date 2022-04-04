@@ -1,6 +1,6 @@
-﻿using HelloChatApp.BotConsole;
-using HelloChatApp.BotConsole.Abstractions;
+﻿using HelloChatApp.BotConsole.Abstractions;
 using HelloChatApp.BotConsole.Consumers;
+using HelloChatApp.BotConsole.Infra.RabbitMq;
 using HelloChatApp.BotConsole.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +10,7 @@ var builder = Host.CreateDefaultBuilder(args);
 builder.ConfigureServices(services =>
 {
     services.AddScoped<IConsumer<StockQueryCommand>, StockQueryCommandConsumer>();
+    services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();    
 });
 
 var app = builder.Build();

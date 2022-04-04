@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HelloChatApp.BotConsole\HelloChatApp.BotConsole.csproj" />
     <ProjectReference Include="..\HelloChatApp\Server\HelloChatApp.Server.csproj" />
   </ItemGroup>
 
