@@ -1,7 +1,7 @@
 # Hello ChatApp
 
 This solution consists on 3 .net projects:
-- Backend api with a signalR implementation;
+- Backend api with a signalR implementation for the chat engine, and using AspNet Identity for user authentication and authentication;
 - Simple frontend with blazor (it was fun to write linq on frontend code);
 - A console application that works decoulpled from the chat server to process commands, get stock values from a api and send them back to the chat app;
 - A RabbitMq Brocker to tye up the chat server and the console application that runs the stock query commands.
