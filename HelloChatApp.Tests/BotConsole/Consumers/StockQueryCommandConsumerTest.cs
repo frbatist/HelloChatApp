@@ -26,6 +26,7 @@ namespace HelloChatApp.Tests.BotConsole.Consumers
         public async Task Consume_should_get_stock_price_and_send_ti_back_to_chat_app()
         {
             //Arrange            
+            var room = "houseofmotherjoana";
             var username = "Fagner";
             var userHubId = "09876";
             var stockCode = "AAPL.US";
@@ -33,6 +34,7 @@ namespace HelloChatApp.Tests.BotConsole.Consumers
 
             var command = new StockQueryCommand
             {
+                Room = room,
                 UserName = username,
                 StockCode = stockCode,
                 UserHubId = userHubId
@@ -46,7 +48,9 @@ namespace HelloChatApp.Tests.BotConsole.Consumers
             //Assert
             _publisher.Received(1).Publish(LastStockPriceExchange, Arg.Is<LastStockPrice>
             (
-                d => d.UserName == username &&
+                d => 
+                d.Room == room &&
+                d.UserName == username &&
                 d.StockCode == stockCode &&
                 d.StockPrice == stockPrice &&
                 d.UserHubId == userHubId

@@ -89,6 +89,7 @@ namespace HelloChatApp.Tests.Server.Services
             _publisher.Received(1).Publish(StockQueryCommandExchange, Arg.Is<StockQueryCommand>
                 (
                     d =>
+                    d.Room == room &&
                     d.UserName == userName &&
                     d.UserHubId == userHubId &&
                     d.StockCode == stockCode

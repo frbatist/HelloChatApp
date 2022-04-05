@@ -23,6 +23,7 @@ namespace HelloChatApp.BotConsole.Consumers
             var price = await _stockService.GetStockPrice(message.StockCode);
             var lastStockPrice = new LastStockPrice
             {
+                Room = message.Room,
                 UserName = message.UserName,
                 UserHubId = message.UserHubId,
                 StockCode = message.StockCode,

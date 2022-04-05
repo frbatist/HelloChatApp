@@ -65,6 +65,7 @@ namespace HelloChatApp.Server.Services
         {
             var command = new StockQueryCommand
             {
+                Room = messageDetails.Room,
                 StockCode = args[1],
                 UserHubId = messageDetails.UserHubId,
                 UserName = messageDetails.UserName
