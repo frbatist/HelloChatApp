@@ -48,18 +48,23 @@
 
     protected override async Task OnInitializedAsync()
     {
-        hubConnection = new HubConnectionBuilder()
+        try
+        {
+            hubConnection = new HubConnectionBuilder()
             .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"), options =>
-            { 
+            {
                 options.AccessTokenProvider = async () =>
                 {
                     var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
                     accessTokenResult.TryGetToken(out var accessToken);
-                    return accessToken.Value;                    
+                    return accessToken.Value;
                 };
             }).Build();
-
-        await EnterRoom();
+        }
+        finally
+        {
+            await EnterRoom();
+        }        
     }
 
     private async Task Send()

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloChatApp.Shared", "Hell
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloChatApp.Tests", "HelloChatApp.Tests\HelloChatApp.Tests.csproj", "{EC350AA7-32A8-44F3-A5DD-B7B02208B555}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloChatApp.BotConsole", "HelloChatApp.BotConsole\HelloChatApp.BotConsole.csproj", "{DF8E8B31-E0E4-429D-963D-66B3601BC56F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloChatApp.BotConsole", "HelloChatApp.BotConsole\HelloChatApp.BotConsole.csproj", "{DF8E8B31-E0E4-429D-963D-66B3601BC56F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8980C9FD-6C36-4D30-93BC-CD86B802FD22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{DF8E8B31-E0E4-429D-963D-66B3601BC56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF8E8B31-E0E4-429D-963D-66B3601BC56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF8E8B31-E0E4-429D-963D-66B3601BC56F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8980C9FD-6C36-4D30-93BC-CD86B802FD22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8980C9FD-6C36-4D30-93BC-CD86B802FD22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8980C9FD-6C36-4D30-93BC-CD86B802FD22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8980C9FD-6C36-4D30-93BC-CD86B802FD22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

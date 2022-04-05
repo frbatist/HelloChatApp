@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "HelloChatApp.BotConsole": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
