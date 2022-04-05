@@ -5,15 +5,8 @@
         <div class="top-row px-4 auth">
             <LoginDisplay />
         </div>
-        <AuthorizeView>
-            <Authorized>
-                <article class="content px-4">
-                    @Body
-                </article>
-            </Authorized>
-            <NotAuthorized>
-                <p>Please log in to enter the chat!</p>
-            </NotAuthorized>
-        </AuthorizeView>
+        <article class="content px-4">
+            @Body
+        </article>
     </main>
 </div>

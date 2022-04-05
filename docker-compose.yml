@@ -7,34 +7,45 @@ services:
     volumes:
       - mq_data:/var/lib/rabbitmq/mnesia
     ports:
-      - "15672:15672"
-      - "5672:5672" 
+    - "4369:4369"
+    - "5671:5671"
+    - "5672:5672"
+    - "25672:25672"
+    - "15671:15671"
+    - "15672:15672"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
     networks:
       - chatnetwork
 
   hellochatapp.botconsole:
     image: hellochatappbotconsole
-    depends_on:
-      - rabbit-mq
     build:
       context: .
       dockerfile: HelloChatApp.BotConsole/Dockerfile
+    restart: on-failure
+    depends_on:
+      - rabbit-mq      
     networks:
       - chatnetwork
 
   hellochatapp.server:
     image: hellochatappserver
-    depends_on:
-      - rabbit-mq
     build:
       context: .
       dockerfile: HelloChatApp/Server/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=https://+:443;http://+:80      
     ports:
       - "63474:80"
       - "63475:443"
+    restart: on-failure
+    depends_on:
+      - rabbit-mq      
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro      

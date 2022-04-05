@@ -1,0 +1,110 @@
+﻿@using HelloChatApp.Shared
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.SignalR.Client
+@implements IAsyncDisposable
+@inject NavigationManager NavigationManager
+
+<div class="form-group">
+    <label>
+        Room:
+        <select value=@room @onchange="SelectRoom">        
+            <option value="c#devs"> C# Devs </option>
+            <option value="pythondevs"> Python Devs </option>
+        </select>
+    </label> 
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label>
+        Message:
+        <input @bind="messageInput" size="50" />
+    </label>
+</div>
+
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+
+<hr>
+
+<ul id="messagesList">
+    @foreach (var message in messages)
+    {
+        <li>@message.Item1.ToString(@"hh\:mm\:ss") - @message.Item2</li>
+    }
+</ul>
+
+@code {
+    private HubConnection? hubConnection;
+    private List<(TimeSpan,string)> messages = new List<(TimeSpan,string)>();
+    private string? room = "c#devs";    
+    private string? messageInput;    
+
+    [Inject]
+    public IAccessTokenProvider AccessTokenProvider { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            hubConnection = new HubConnectionBuilder()
+            .WithUrl(NavigationManager.ToAbsoluteUri("/chathub"), options =>
+            {
+                options.AccessTokenProvider = async () =>
+                {
+                    var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
+                    accessTokenResult.TryGetToken(out var accessToken);
+                    return accessToken.Value;
+                };
+            }).Build();
+        }
+        finally
+        {
+            await EnterRoom();
+        }        
+    }
+
+    private async Task Send()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("SendMessage", new MessageModel(room ?? "Room01", messageInput ?? ""));
+        }
+    }
+
+    public bool IsConnected => hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
+    }
+
+    async void SelectRoom(ChangeEventArgs e)
+    {        
+        if (room != null)
+        {
+            await hubConnection.StopAsync();
+            hubConnection.Remove(room);
+        }
+
+        room = e.Value.ToString();
+        await EnterRoom();
+        messages.Clear();
+        StateHasChanged();
+    }
+
+    async Task EnterRoom()
+    {        
+        hubConnection.On<string, string>(room, (user, message) =>
+        {
+            var encodedMsg = $"{user}: {message}";
+            messages.Add(new (DateTime.Now.TimeOfDay, encodedMsg));
+            messages = messages.OrderByDescending(d => d.Item1).Take(50).ToList();
+            StateHasChanged();
+        });        
+        await hubConnection.StartAsync();
+    }
+}
+
