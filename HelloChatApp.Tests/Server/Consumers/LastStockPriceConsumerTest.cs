@@ -33,6 +33,7 @@ namespace HelloChatApp.Tests.Server.Consumers
             //Arrange
             var room = "houseofmotherjoana";
             var username = "Fagner";
+            var chatBotUserName = "Stock Bot";
             var userHubId = "09876";
             var stockCode = "AAPL.US";
             var stockPrice = 120;
@@ -56,7 +57,7 @@ namespace HelloChatApp.Tests.Server.Consumers
             //Assert
             await _clientProxy.Received(1).SendCoreAsync(room, Arg.Is<object[]>
                 (
-                    d => AssertSendMessage(d, username, message)
+                    d => AssertSendMessage(d, chatBotUserName, message)
                 ),
                 Arg.Any<CancellationToken>()
             );

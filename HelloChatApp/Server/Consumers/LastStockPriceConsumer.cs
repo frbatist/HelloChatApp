@@ -8,6 +8,7 @@ namespace HelloChatApp.Server.Consumers
     public class LastStockPriceConsumer : IConsumer<LastStockPrice>
     {
         private const string StockPriceMessagePattern = "{0} quote is ${1} per share";
+        private const string ChatBotUserName = "Stock Bot";
         private readonly IHubContext<ChatHub> _hubContext;
         private readonly ILogger<LastStockPriceConsumer> _logger;        
 
@@ -29,7 +30,7 @@ namespace HelloChatApp.Server.Consumers
             }
 
             _logger.LogDebug($"Received message from bot: {stockPriceMessage} - Sending to {message.UserName}.");
-            return client.SendAsync(message.Room, message.UserName, stockPriceMessage);
+            return client.SendAsync(message.Room, ChatBotUserName, stockPriceMessage);
         }
     }
 }

@@ -104,6 +104,7 @@ namespace HelloChatApp.Tests.Server.Services
             string stockCode = "EET_20";
             var message = "/car=EET_20";
             var userName = "Connor";
+            var chatBotUserName = "Stock Bot";
             var userHubId = "1234";
 
             _hubClients.Client(userHubId).Returns(_clientProxy);
@@ -117,7 +118,7 @@ namespace HelloChatApp.Tests.Server.Services
             //Assert
             await _clientProxy.Received(1).SendCoreAsync(room, Arg.Is<object[]>
                 (
-                    d => AssertSendMessage(d, userName, "Message is not a valid command - car!")
+                    d => AssertSendMessage(d, chatBotUserName, "Message is not a valid command - car!")
                 ),
                 Arg.Any<CancellationToken>()
             );
@@ -133,6 +134,7 @@ namespace HelloChatApp.Tests.Server.Services
             //Arrange
             var room = "A1";            
             var userName = "Connor";
+            var chatBotUserName = "Stock Bot";
             var userHubId = "1234";
 
             _hubClients.Client(userHubId).Returns(_clientProxy);
@@ -147,7 +149,7 @@ namespace HelloChatApp.Tests.Server.Services
             _logger.Received(1).LogDebug("Message is a command - stock!");
             await _clientProxy.Received(1).SendCoreAsync(room, Arg.Is<object[]>
                 (
-                    d => AssertSendMessage(d, userName, "Command invalid: stock. The value must be informed!")
+                    d => AssertSendMessage(d, chatBotUserName, "Command invalid: stock. The value must be informed!")
                 ),
                 Arg.Any<CancellationToken>()
             );

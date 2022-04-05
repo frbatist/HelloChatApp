@@ -13,6 +13,7 @@ namespace HelloChatApp.Server.Services
         private const char CommandStartup = '/';
         private const char CommandValueSeparator = '=';
         private const string DefaultCommand = "stock";
+        private const string ChatBotUserName = "Stock Bot";
         private readonly IHubContext<ChatHub> _hubContext;
         private readonly ILogger<MessageProcessor> _logger;
         private readonly IPublisher _publisher;
@@ -76,7 +77,7 @@ namespace HelloChatApp.Server.Services
         private Task SendErrorMessageToUser(MessageDetails messageDetails, string errorMessage)
         {
             _logger.LogDebug(errorMessage);
-            return _hubContext.Clients.Client(messageDetails.UserHubId).SendAsync(messageDetails.Room, messageDetails.UserName, errorMessage);
+            return _hubContext.Clients.Client(messageDetails.UserHubId).SendAsync(messageDetails.Room, ChatBotUserName, errorMessage);
         }
     }
 }
