@@ -1,3 +1,5 @@
+# Hello ChatApp
+
 This solution consists on 3 .net projects:
 - Backend api with a signalR implementation;
 - Simple frontend with blazor (it was fun to write linq on frontend code);
