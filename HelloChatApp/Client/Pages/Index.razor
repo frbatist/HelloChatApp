@@ -33,13 +33,13 @@
 <ul id="messagesList">
     @foreach (var message in messages)
     {
-        <li>@message</li>
+        <li>@message.Item1.ToString(@"hh\:mm\:ss") - @message.Item2</li>
     }
 </ul>
 
 @code {
     private HubConnection? hubConnection;
-    private List<string> messages = new List<string>();
+    private List<(TimeSpan,string)> messages = new List<(TimeSpan,string)>();
     private string? room = "c#devs";    
     private string? messageInput;    
 
@@ -99,7 +99,8 @@
         hubConnection.On<string, string>(room, (user, message) =>
         {
             var encodedMsg = $"{user}: {message}";
-            messages.Add(encodedMsg);
+            messages.Add(new (DateTime.Now.TimeOfDay, encodedMsg));
+            messages = messages.OrderByDescending(d => d.Item1).Take(50).ToList();
             StateHasChanged();
         });        
         await hubConnection.StartAsync();

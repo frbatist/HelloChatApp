@@ -7,6 +7,7 @@ using HelloChatApp.Server.Hubs;
 using HelloChatApp.Shared.Messages;
 using HelloChatApp.Shared.Infra.RabbitMq;
 using HelloChatApp.Shared.Abstractions;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
