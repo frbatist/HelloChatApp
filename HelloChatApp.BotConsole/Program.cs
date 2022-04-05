@@ -12,8 +12,9 @@ var builder = Host.CreateDefaultBuilder(args);
 
 builder.ConfigureServices(services =>
 {
-    services.AddScoped<IConsumer<StockQueryCommand>, StockQueryCommandConsumer>();
     services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+    services.AddSingleton<IPublisher, RabbitMqPublisher>();
+    services.AddScoped<IConsumer<StockQueryCommand>, StockQueryCommandConsumer>();    
     services.AddHttpClient<IStockRepository, StockRepository>();
     services.AddScoped<IStockService, StockService>();
 });

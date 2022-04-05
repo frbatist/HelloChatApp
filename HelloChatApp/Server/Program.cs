@@ -6,6 +6,7 @@ using HelloChatApp.Server.Extensions;
 using HelloChatApp.Server.Hubs;
 using HelloChatApp.Shared.Messages;
 using HelloChatApp.Shared.Infra.RabbitMq;
+using HelloChatApp.Shared.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,9 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+builder.Services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+builder.Services.AddSingleton<IPublisher, RabbitMqPublisher>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -67,6 +71,6 @@ app.UseEndpoints(endpoints =>
 });
 app.MapFallbackToFile("index.html");
 
-app.Services.Subscribe<LastStockPrice>("stock-query-command", "stock-query-command_chat-server");
+app.Services.Subscribe<LastStockPrice>("last-stock-price", "last-stock-price_chat-server");
 
 app.Run();

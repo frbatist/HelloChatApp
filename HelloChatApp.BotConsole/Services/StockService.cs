@@ -8,7 +8,8 @@ namespace HelloChatApp.BotConsole.Services
         private const int CsvStockPriceIndex = 6;
         private const string CsvLineSeparator = "\r\n";
         private const string CsvColumnSeparator = ",";
-        private const string CsvCulture = "en-us";        
+        private const string CsvCulture = "en-us";
+        private const int CsvValueLineNumber = 1;
         private readonly IStockRepository _stockRepository;
 
         public StockService(IStockRepository stockRepository)
@@ -23,9 +24,13 @@ namespace HelloChatApp.BotConsole.Services
             { 
                 return 0;
             }
+
             var lines = stockCsv.Split(CsvLineSeparator);
-            var lastLine = lines[lines.Length - 1];
-            var columns = lastLine.Split(CsvColumnSeparator);
+            if (CsvValueLineNumber >= lines.Length)
+                return 0;
+
+            var valueLine = lines[CsvValueLineNumber];
+            var columns = valueLine.Split(CsvColumnSeparator);
 
             if (columns.Length < CsvStockPriceIndex)
                 return 0;

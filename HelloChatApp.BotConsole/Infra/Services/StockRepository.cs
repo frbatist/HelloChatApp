@@ -17,7 +17,7 @@ namespace HelloChatApp.BotConsole.Infra.Services
 
         public Task<string> GetStock(string stockCode)
         {
-            var url = _configuration.GetValue<string>(StockServiceUrlKey);
+            var url = string.Format(_configuration.GetValue<string>(StockServiceUrlKey), stockCode);
             if (url == null)
                 return Task.FromResult(string.Empty);
 

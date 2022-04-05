@@ -18,7 +18,7 @@ namespace HelloChatApp.Shared.Infra.RabbitMq
             var conn = _rabbitMqConnection.GetConnection();
             var channel = conn.CreateModel();
             var body = JsonSerializer.SerializeToUtf8Bytes(message);
-            channel.BasicPublish(exchange: "logs",
+            channel.BasicPublish(exchange: exchangeName,
                                  routingKey: "",
                                  basicProperties: null,
                                  body: body);

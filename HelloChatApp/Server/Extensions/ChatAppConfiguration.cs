@@ -13,6 +13,7 @@ namespace HelloChatApp.Server.Extensions
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IMessageProcessor, MessageProcessor>();
 
             //Consumers
             services.AddScoped<IConsumer<LastStockPrice>, LastStockPriceConsumer>();
