@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using HelloChatApp.Server.Extensions;
 using HelloChatApp.Server.Hubs;
+using HelloChatApp.Shared.Messages;
+using HelloChatApp.Shared.Infra.RabbitMq;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>    
     options.UseSqlite(connectionString));
@@ -65,5 +66,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapHub<ChatHub>("/chathub");
 });
 app.MapFallbackToFile("index.html");
+
+app.Services.Subscribe<LastStockPrice>("stock-query-command", "stock-query-command_chat-server");
 
 app.Run();
