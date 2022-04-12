@@ -15,6 +15,6 @@ Just navigate to root directory with bash or Windows Terminal and start it with:
 
 docker-compose up
 
-The dotnet applications will gonna restart themselves some times, because they'll be waiting for the RabbitMq container to be healthy.
+The dotnet applications will restart themselves some times, because they'll be waiting for the RabbitMq container to be healthy.
 
-That's it
+That's it, just browse http://localhost:63474 and you're good to go!
