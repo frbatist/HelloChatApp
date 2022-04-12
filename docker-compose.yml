@@ -39,10 +39,9 @@ services:
       dockerfile: HelloChatApp/Server/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80      
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - "63474:80"
-      - "63475:443"
+      - "63474:80"      
     restart: on-failure
     depends_on:
       - rabbit-mq      
